@@ -28,3 +28,6 @@ In het beheerportaal staat een uploadveld voor één .html-, .htm- of .js-bestan
 
 Koppel eerst via Vercel > Storage een **private Vercel Blob-store** aan dit project. Hierdoor wordt BLOB_READ_WRITE_TOKEN aan het project toegevoegd. Voer daarna een redeploy uit. Zonder opslagkoppeling toont het portaal een instructie en blijft de bestaande factuurknop werken. Vercel installeert de dependency uit package-lock.json; er is geen buildstap nodig.
 Upload alleen eigen, vertrouwde code. Geüploade HTML/JavaScript draait onder de website-origin en kan bezoekersfuncties uitvoeren. Deze upload wordt niet door de app gecontroleerd op inhoud; cameratoestemming of andere gegevensverwerking moet expliciet in die code worden uitgelegd. Er is geen ingebouwde camera-opnamefunctie.
+
+## Foto-opslag
+Zie FOTO-UPLOAD.md voor het uploadadres, het voorbeeld en de grenzen. /api/photos slaat foto’s op in de private Blob-store; alleen ingelogde beheerders kunnen ze lezen of verwijderen. De meegeleverde /photo-upload.js helper vraagt een afzonderlijke bevestiging voor het versturen en opslaan. Het beheerportaal bevat de galerij Ontvangen foto’s. Er wordt niet automatisch een camera geopend of een foto gemaakt.
