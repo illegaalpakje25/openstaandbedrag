@@ -40,3 +40,6 @@ Foto’s blijven bewaard totdat je ze in het portaal verwijdert. Er is geen auto
 
 ## Kant-en-klare camerapagina
 Open /foto om met toestemming de camera te openen, een foto te maken en deze te bekijken voordat de bezoeker op Foto versturen klikt. De camera stopt na de opname, bij het sluiten of zodra de pagina naar de achtergrond gaat. Er wordt geen audio gevraagd. Deze pagina vervangt niet automatisch een bestaande geüploade doelpagina.
+
+## Cameratest voor ingelogde beheerder
+/test-foto heeft één knop Foto maken en opslaan. De uitleg op die pagina vermeldt vooraf dat één echte foto direct wordt opgeslagen. Alleen een ingelogde beheerder kan POST /api/photo-test gebruiken. De browser vraagt zelf om cameratoegang; er volgt geen extra preview of bevestigingsdialoog. Er wordt geen audio gevraagd. De camera stopt na de opname of wanneer de pagina naar de achtergrond gaat. De test is bedoeld voor de eigen foto van de beheerder. De publieke bezoekersfunctie en de verzendkeuze in photo-upload.js blijven gelijk.
