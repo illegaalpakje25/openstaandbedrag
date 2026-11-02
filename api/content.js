@@ -4,7 +4,7 @@ module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   const publicRead = req.method === 'GET' && (req.query?.view === 'page' || req.query?.public === '1');
   if (!publicRead && !authorized(req)) return res.status(401).json({ error: 'Log opnieuw in om uploads te beheren.' });
-  const configured = !!process.env.BLOB_READ_WRITE_TOKEN;
+  const configured = !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
   if (!configured) {
     if (publicRead) return res.status(req.query?.view === 'page' ? 404 : 200).json({ active: false });
     return res.status(req.method === 'GET' ? 200 : 503).json({ configured: false, active: false, error: 'Koppel een private Vercel Blob-store via Storage en voer een redeploy uit.' });
