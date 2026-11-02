@@ -1,10 +1,15 @@
+async function readApiResponse(response) {
+  const text = await response.text();
+  try { return JSON.parse(text); }
+  catch { throw new Error('De server is tijdelijk niet beschikbaar (HTTP ' + response.status + '). Probeer opnieuw. Controleer bij aanhoudende problemen de deploymentlogs in Vercel.'); }
+}
 const login = document.getElementById('loginPanel');
 const portal = document.getElementById('portalPanel');
 const message = document.getElementById('message');
 async function loadPortal() {
   try {
     const response = await fetch('/api/auth', { cache: 'no-store' });
-    const data = await response.json();
+    const data = await readApiResponse(response);
     if (!response.ok) { login.hidden = false; portal.hidden = true; message.textContent = response.status === 401 ? '' : data.error; return; }
     for (const [id, value] of Object.entries({ accountName: data.username, invoiceNumber: data.invoice, invoiceDescription: data.description, invoiceAmount: data.amount, invoiceStatus: data.status })) document.getElementById(id).textContent = value;
     login.hidden = true; portal.hidden = false; message.textContent = ''; await loadUploadConfig();
@@ -15,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async event => {
   const submit = document.getElementById('loginSubmit'); submit.disabled = true; message.textContent = 'Bezig met inloggen…';
   try {
     const response = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: document.getElementById('username').value, password: document.getElementById('password').value }) });
-    const data = await response.json();
+    const data = await readApiResponse(response);
     if (!response.ok) { message.textContent = data.error; return; }
     document.getElementById('password').value = ''; await loadPortal();
   } catch { message.textContent = 'Inloggen mislukt. Controleer uw verbinding.'; }
@@ -35,7 +40,7 @@ async function loadUploadConfig() {
   const status = document.getElementById('uploadConfig');
   try {
     const response = await fetch('/api/content', { cache: 'no-store' });
-    const data = await response.json();
+    const data = await readApiResponse(response);
     if (!response.ok) throw new Error(data.error || 'Uploadinstellingen niet beschikbaar.');
     document.getElementById('uploadSubmit').disabled = !data.configured;
     document.getElementById('viewUpload').hidden = !data.active;
@@ -45,7 +50,7 @@ async function loadUploadConfig() {
 }
 async function saveUpload(body) {
   const response = await fetch('/api/content', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  const result = await response.json();
+  const result = await readApiResponse(response);
   if (!response.ok) throw new Error(result.error || 'Opslaan mislukt.');
 }
 document.getElementById('uploadForm').addEventListener('submit', async event => {
