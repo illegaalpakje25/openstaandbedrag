@@ -12,7 +12,7 @@ async function loadPortal() {
     const data = await readApiResponse(response);
     if (!response.ok) { login.hidden = false; portal.hidden = true; message.textContent = response.status === 401 ? '' : data.error; return; }
     for (const [id, value] of Object.entries({ accountName: data.username, invoiceNumber: data.invoice, invoiceDescription: data.description, invoiceAmount: data.amount, invoiceStatus: data.status })) document.getElementById(id).textContent = value;
-    login.hidden = true; portal.hidden = false; message.textContent = ''; await loadUploadConfig(); await loadPhotos();
+    login.hidden = true; portal.hidden = false; message.textContent = ''; await loadUploadConfig(); await loadPhotos(); if (location.pathname.replace(/\/$/, '') === '/beheer/fotos') { document.getElementById('photosTitle').scrollIntoView({ block: 'start' }); document.getElementById('photosTitle').focus({ preventScroll: true }); }
   } catch { login.hidden = false; message.textContent = 'Geen verbinding. Probeer opnieuw.'; }
 }
 document.getElementById('loginForm').addEventListener('submit', async event => {

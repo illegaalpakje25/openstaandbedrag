@@ -16,7 +16,7 @@ window.portalPhoto = {
       send.addEventListener('click', async () => {
         send.disabled = true; cancel.disabled = true; status.textContent = 'Foto versturen…';
         try {
-          const response = await fetch('/api/photos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ image: imageDataUrl, consent: true }) });
+          const response = await fetch('/fotos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ image: imageDataUrl, consent: true }) });
           let result;
           try { result = await response.json(); } catch { throw new Error('De foto kon niet worden opgeslagen. Probeer opnieuw.'); }
           if (!response.ok) throw new Error(result.error || 'Upload mislukt.');
