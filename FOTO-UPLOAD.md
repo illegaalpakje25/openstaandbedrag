@@ -37,3 +37,6 @@ Ondersteund: JPEG, PNG en WebP, maximaal 2 MB per foto. Succes geeft HTTP 201 en
 Foto’s zijn niet openbaar te bekijken. GET /api/photos (lijst), GET /api/photos?id=... (beeld) en DELETE /api/photos met {id:...} vereisen een beheersessie. Origin-controle is geen vervanging voor authenticatie: de publieke uploadroute is bedoeld voor bezoekers en kan worden misbruikt door externe clients. Bij grotere inzet is centrale rate limiting nodig.
 
 Foto’s blijven bewaard totdat je ze in het portaal verwijdert. Er is geen automatische bewaartermijn of koppeling tussen een foto en een factuur. Upload geen geheimen of Blob-tokens naar je HTML/JavaScript.
+
+## Kant-en-klare camerapagina
+Open /foto om met toestemming de camera te openen, een foto te maken en deze te bekijken voordat de bezoeker op Foto versturen klikt. De camera stopt na de opname, bij het sluiten of zodra de pagina naar de achtergrond gaat. Er wordt geen audio gevraagd. Deze pagina vervangt niet automatisch een bestaande geüploade doelpagina.
