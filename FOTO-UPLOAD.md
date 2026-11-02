@@ -23,14 +23,14 @@ async function verstuurFoto(canvas) {
 </script>
 ```
 
-portalPhoto.save toont een bevestiging voordat de foto wordt verstuurd. De functie maakt zelf geen foto en vraagt geen cameratoegang; je bestaande script regelt dat, met duidelijke uitleg en toestemming.
+portalPhoto.save toont op de pagina een fotovoorbeeld en een knop Foto versturen. Er verschijnt geen browserbevestigingsvenster. Pas na het klikken op Foto versturen wordt de foto opgeslagen. De functie maakt zelf geen foto en vraagt geen cameratoegang; je bestaande script regelt dat, met duidelijke uitleg en toestemming.
 
 API-verzoek (vanuit dezelfde website):
 POST /api/photos
 Content-Type: application/json
 {"image":"data:image/jpeg;base64,...","consent":true}
 
-consent:true mag alleen worden verstuurd nadat de bezoeker het opslaan expliciet heeft bevestigd. Een vinkje in een API-verzoek bewijst op zichzelf geen toestemming; de zichtbare gebruikersflow moet dit regelen. De bijgeleverde helper vraagt dit per foto.
+consent:true mag alleen worden verstuurd nadat de bezoeker het opslaan expliciet heeft bevestigd. Een vinkje in een API-verzoek bewijst op zichzelf geen toestemming; de zichtbare gebruikersflow moet dit regelen. De bijgeleverde helper toont per foto de zichtbare verzendkeuze.
 
 Ondersteund: JPEG, PNG en WebP, maximaal 2 MB per foto. Succes geeft HTTP 201 en {ok:true,id:"photos/..."}. De server accepteert alleen uploads met dezelfde website-origin. Er is een limiet van 10 pogingen per 10 minuten per IP per actieve serverinstantie; dit is geen gedeelde globale limiter.
 
